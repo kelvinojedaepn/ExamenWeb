@@ -1,0 +1,28 @@
+{
+  "user": [
+    {
+      "id": 1,
+      "name": "Kelvin",
+      "year": 18,
+      "isMaritate": true
+    },
+    {
+      "name": "Bob",
+      "year": 9,
+      "isMaritate": true,
+      "id": 2
+    },
+    {
+      "name": "Juan",
+      "year": 12,
+      "isMaritate": false,
+      "id": 3
+    },
+    {
+      "name": "dymmy",
+      "year": 3,
+      "isMaritate": false,
+      "id": 4
+    }
+  ]
+}
