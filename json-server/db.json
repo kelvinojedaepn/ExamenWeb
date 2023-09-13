@@ -1,10 +1,10 @@
 {
   "user": [
     {
-      "id": 1,
       "name": "Kelvin",
       "year": 18,
-      "isMaritate": true
+      "isMaritate": false,
+      "id": 1
     },
     {
       "name": "Bob",
@@ -17,12 +17,6 @@
       "year": 12,
       "isMaritate": false,
       "id": 3
-    },
-    {
-      "name": "dymmy",
-      "year": 3,
-      "isMaritate": false,
-      "id": 4
     }
   ]
 }

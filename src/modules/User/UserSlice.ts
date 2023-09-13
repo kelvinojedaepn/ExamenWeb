@@ -1,11 +1,22 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit"
-import {ApiStatus, IUserForm, IUserState} from "./User.type"
-import {createUserApi, getUserListApi} from "./UserService"
+import {
+  ApiStatus,
+  IUserForm,
+  IUserState,
+  IUpdateUserActionProps,
+} from "./User.type"
+import {
+  createUserApi,
+  deleteUserApi,
+  getUserListApi,
+  updateUserApi,
+} from "./UserService"
 
 const initialState: IUserState = {
   list: [],
   listStatus: ApiStatus.ideal,
   createUserFormStatus: ApiStatus.ideal,
+  updateUserFormStatus: ApiStatus.ideal,
 }
 
 export const getUserListAction = createAsyncThunk(
@@ -23,6 +34,25 @@ export const createUserAction = createAsyncThunk(
     const response = await createUserApi(data)
     // return status
     return response.data
+  }
+)
+
+export const updateUserAction = createAsyncThunk(
+  "user/updateUserAction",
+  async (props: IUpdateUserActionProps) => {
+    const {id, data} = props
+    //create api
+    const response = await updateUserApi(id, data)
+    // return status
+    return response.data
+  }
+)
+
+export const deleteUserAction = createAsyncThunk(
+  "user/deleteUserAction",
+  async (id: number) => {
+    await deleteUserApi(id)
+    return id
   }
 )
 
@@ -53,6 +83,19 @@ const userSlice = createSlice({
     })
     builder.addCase(createUserAction.rejected, state => {
       state.createUserFormStatus = ApiStatus.error
+    })
+    builder.addCase(deleteUserAction.fulfilled, (state, action) => {
+      const newList = state.list.filter(x => x.id !== action.payload)
+      state.list = newList
+    })
+    builder.addCase(updateUserAction.pending, state => {
+      state.updateUserFormStatus = ApiStatus.loading
+    })
+    builder.addCase(updateUserAction.fulfilled, state => {
+      state.updateUserFormStatus = ApiStatus.ideal
+    })
+    builder.addCase(updateUserAction.rejected, state => {
+      state.updateUserFormStatus = ApiStatus.error
     })
   },
 })

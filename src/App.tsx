@@ -14,6 +14,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<UserList />} />
             <Route path="/add" element={<UserForm />} />
+            <Route path="/edit/:id" element={<UserForm isEditForm={true} />} />
           </Route>
         </Routes>
       </BrowserRouter>
