@@ -10,6 +10,7 @@ import {
 import {ApiStatus, IUpdateUserActionProps, IUserForm} from "./User.type"
 import {RootState} from "../../app/store"
 import {useParams} from "react-router-dom"
+import {toastError} from "../../components/ToastifyConfig"
 
 interface IProps {
   isEditForm?: boolean
@@ -45,15 +46,19 @@ export const UserForm = (props: IProps) => {
   const onSubmitForm = (e: React.FormEvent) => {
     e.preventDefault()
     const data: IUserForm = {name, year, isMaritate}
-    if (isEditForm) {
-      const dirtyData: IUpdateUserActionProps = {
-        id: userIdToEdit.current,
-        data,
-      }
+    if (name && year && isMaritate) {
+      if (isEditForm) {
+        const dirtyData: IUpdateUserActionProps = {
+          id: userIdToEdit.current,
+          data,
+        }
 
-      dispatch(updateUserAction(dirtyData))
+        dispatch(updateUserAction(dirtyData))
+      } else {
+        dispatch(createUserAction(data))
+      }
     } else {
-      dispatch(createUserAction(data))
+      toastError("Please fill the form")
     }
   }
 

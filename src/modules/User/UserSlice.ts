@@ -11,6 +11,7 @@ import {
   getUserListApi,
   updateUserApi,
 } from "./UserService"
+import {toastSuccess} from "../../components/ToastifyConfig"
 
 const initialState: IUserState = {
   list: [],
@@ -80,9 +81,11 @@ const userSlice = createSlice({
     })
     builder.addCase(createUserAction.fulfilled, state => {
       state.createUserFormStatus = ApiStatus.success
+      toastSuccess("User created")
     })
     builder.addCase(createUserAction.rejected, state => {
       state.createUserFormStatus = ApiStatus.error
+      toastSuccess("Error white creating user")
     })
     builder.addCase(deleteUserAction.fulfilled, (state, action) => {
       const newList = state.list.filter(x => x.id !== action.payload)
@@ -93,9 +96,11 @@ const userSlice = createSlice({
     })
     builder.addCase(updateUserAction.fulfilled, state => {
       state.updateUserFormStatus = ApiStatus.ideal
+      toastSuccess("User updated")
     })
     builder.addCase(updateUserAction.rejected, state => {
       state.updateUserFormStatus = ApiStatus.error
+      toastSuccess("Error white updating user")
     })
   },
 })

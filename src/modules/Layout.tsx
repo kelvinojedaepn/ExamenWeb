@@ -2,6 +2,8 @@ import React from "react"
 import Style from "./LayoutStyle.module.css"
 import {GlobalNav} from "./GlobalNav"
 import {Outlet} from "react-router-dom"
+import {ToastContainer} from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 export const Layout = () => {
   return (
     <>
@@ -13,11 +15,11 @@ export const Layout = () => {
 
       <section className={Style["content-section"]}>
         <GlobalNav />
-        <main>
+        <main className={Style["main-context"]}>
           <Outlet />
         </main>
-        <div>Section</div>
       </section>
+      <ToastContainer />
     </>
   )
 }
